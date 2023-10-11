@@ -4,7 +4,8 @@ import React from 'react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Dropdown from './dropdown';
+import { useRouter } from 'next/router';
+import { DropdownMenu, Transition } from "@headlessui/react";
 
 export default function Navbar() {
   const user = {
@@ -12,7 +13,15 @@ export default function Navbar() {
     role: 'Administrator',
   };
 
-  const [toggleDropdown, setToggleDropdown] = useState(false)
+  const [toggleDropdown, setToggleDropdown] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('Choose View');
+  const [toggleDropdown2, setToggleDropdown2] = useState(false);
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setToggleDropdown2(false);
+  };
+
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -34,7 +43,6 @@ export default function Navbar() {
   const formattedTime = new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     minute: 'numeric',
-    second: 'numeric',
     hour12: true,
   }).format(currentTime);
 
@@ -45,8 +53,10 @@ export default function Navbar() {
     day: 'numeric',
   }).format(currentTime);
 
+  
+
   return (
-    <nav>
+    <nav className="flex flex-col">
       {/* Top Bar */}
       <div className="w-full flex justify-center items-center bg-dark_green h-8 main_text">
         <Image
@@ -58,7 +68,7 @@ export default function Navbar() {
         Task It
       </div>
 
-      <div className="flex">
+      <div className="flex flex-1">
         {/* Profile Area */}
         <div className="bg-dark_green w-96 h-20 px-5 flex items-center">
           <Image
@@ -96,7 +106,7 @@ export default function Navbar() {
         </div>
 
         {/* Info Area */}
-        <div className="bg-light_green flex items-center justify-between px-5">
+        <div className="bg-light_green flex items-center px-5 flex-1 gap-32">
 
         <div className="ml-auto flex items-center relative">
             <input
@@ -114,18 +124,41 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center dash_text">
-            <div className="text-white text-center bg-dark_green rounded-lg h-11 flex items-center">
+            <div className="text-white text-center bg-dark_green rounded-lg h-12 flex items-center">
               <div className="text-2xl font-bold px-8">{formattedTime}</div>
-              <div className="rounded-lg bg-white font-bold h-11 flex items-center">
+
+              <div className="rounded-lg bg-white font-bold h-11 flex items-center mr-1">
                 <span className="dash_text text-gray-500 px-5 text-lg">Welcome <span className="italic font-light">{user.name}</span></span>
               </div>
             </div>
           </div>
 
-          <div>
-            <Dropdown/>
+          <div className="dropdown-container flex justify-center h-11">
+            <button
+              className="rounded-lg bg-dark_green dash_text font-bold text-white px-4"
+              onClick={() => setToggleDropdown2((prev) => !prev)}
+            >
+              {`Chosen: ${selectedOption}`}
+            </button>
+
+            {toggleDropdown2 && (
+              <div className="dropdown dash_text font-semibold right-48 top-[-30px]">
+                <ul>
+                  <li onClick={() => handleOptionClick('Week')}>Week</li>
+                  <li onClick={() => handleOptionClick('Day')}>Day</li>
+                </ul>
+              </div>
+            )}
           </div>
-          <div></div>
+          <div>
+              <button
+                className="rounded-lg bg-dark_green dash_text font-bold text-white px-4 h-11 w-11 flex justify-center items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" fill="white"/>
+              </svg>
+              </button>
+          </div>
         </div>
       </div>
     </nav>
