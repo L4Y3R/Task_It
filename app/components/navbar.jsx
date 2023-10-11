@@ -3,6 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import Dropdown from './dropdown';
 
 export default function Navbar() {
   const user = {
@@ -18,6 +20,30 @@ export default function Navbar() {
     setSearchQuery(e.target.value);
     // You can add additional logic here, such as filtering search results
   };
+
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const formattedTime = new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: true,
+  }).format(currentTime);
+
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(currentTime);
 
   return (
     <nav>
@@ -70,7 +96,7 @@ export default function Navbar() {
         </div>
 
         {/* Info Area */}
-        <div className="bg-light_green w-full flex items-center px-5">
+        <div className="bg-light_green flex items-center justify-between px-5">
 
         <div className="ml-auto flex items-center relative">
             <input
@@ -87,8 +113,18 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div></div>
-          <div></div>
+          <div className="flex items-center dash_text">
+            <div className="text-white text-center bg-dark_green rounded-lg h-11 flex items-center">
+              <div className="text-2xl font-bold px-8">{formattedTime}</div>
+              <div className="rounded-lg bg-white font-bold h-11 flex items-center">
+                <span className="dash_text text-gray-500 px-5 text-lg">Welcome <span className="italic font-light">{user.name}</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Dropdown/>
+          </div>
           <div></div>
         </div>
       </div>
