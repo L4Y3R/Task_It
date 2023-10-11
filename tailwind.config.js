@@ -19,7 +19,7 @@ module.exports = {
         dark_blue:'#3395ff',
         light_blue:'#cbe4fe'
       },
-      fontFamily: ['Gabarito']
+      fontFamily: ['Gabarito','Onest']
     },
   },
   plugins: [],
