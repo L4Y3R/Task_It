@@ -3,7 +3,7 @@ import Groups from "./components/groups";
 export default function Home() {
   return (
     <div className="flex justify-center w-1/3 mx-10">
-      <div className="max-h-screen overflow-auto h-screen sm:h-[600px]">
+      <div className="max-h-screen overflow-auto h-screen sm:h-[700px]">
         <Groups />
       </div>
 
