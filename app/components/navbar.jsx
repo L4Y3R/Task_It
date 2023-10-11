@@ -58,7 +58,7 @@ export default function Navbar() {
   return (
     <nav className="flex flex-col">
       {/* Top Bar */}
-      <div className="w-full flex justify-center items-center bg-dark_green h-8 main_text">
+      <div className="w-full flex justify-center items-center bg-dark_green h-[4vh] main_text">
         <Image
           src="/TASK IT.jpg"
           alt="Task IT Logo"
@@ -70,7 +70,8 @@ export default function Navbar() {
 
       <div className="flex flex-1">
         {/* Profile Area */}
-        <div className="bg-dark_green w-96 h-20 px-5 flex items-center">
+        {/* Desktop NAV */}
+        <div className="hidden lg:flex bg-dark_green w-auto h-5 lg:w-96 lg:h-20 px-5 items-center">
           <Image
             src="/profile.jpg"
             alt="Profile Image"
@@ -80,7 +81,7 @@ export default function Navbar() {
           />
 
           <div className="px-5">
-            <h1 className="text-2xl dash_text text-white font-medium ">{user.name}</h1>
+            <h1 className="md:text-md lg:text-2xl dash_text text-white font-medium ">{user.name}</h1>
             <h2 className="fon text-white">{user.role}</h2>
           </div>
 
@@ -105,10 +106,37 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Info Area */}
-        <div className="bg-light_green flex items-center px-5 flex-1 gap-32">
+        {/* Mobile Nav */}
 
-        <div className="ml-auto flex items-center relative">
+        <div
+          className="lg:hidden bg-dark_green w-auto lg:w-96 lg:h-20 px-5 flex items-center"
+          onClick={() => setToggleDropdown((prev) => !prev)}
+        >
+          <Image
+            src="/profile.jpg"
+            alt="Profile Image"
+            width={100}
+            height={100}
+            className="rounded-full"
+          />
+
+          <button className="rounded-full w-50 h-50 bg-dark_green p-1 ml-5">
+          </button>
+
+          {toggleDropdown && (
+            <div className="dropdown_mobile dash_text font-semibold ">
+              <ul>
+                <li> View Profile </li>
+                <li> Log Out </li>
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Info Area */}
+        <div className="bg-light_green flex items-center px-5 flex-1 md:gap-20 lg:gap-16">
+
+        <div className="hidden md:flex ml-auto items-center relative">
             <input
               type="text"
               placeholder="Search..."
@@ -123,12 +151,12 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div className="flex items-center dash_text">
+          <div className="hidden md:flex items-center dash_text">
             <div className="text-white text-center bg-dark_green rounded-lg h-12 flex items-center">
-              <div className="text-2xl font-bold px-8">{formattedTime}</div>
+              <div className="text-sm md:text-2xl font-bold px-8 whitespace-nowrap">{formattedTime}</div>
 
               <div className="rounded-lg bg-white font-bold h-11 flex items-center mr-1">
-                <span className="dash_text text-gray-500 px-5 text-lg">Welcome <span className="italic font-light">{user.name}</span></span>
+                <span className="dash_text text-gray-500 px-5 text-lg whitespace-nowrap">Welcome <span className="italic font-light">{user.name}</span></span>
               </div>
             </div>
           </div>
