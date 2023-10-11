@@ -4,6 +4,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* custom-scrollbar.css */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ebebeb;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a1a1a1;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+html {
+  scrollbar-color: #acaaaa #f1f1f1;
+  scrollbar-width: thin;
+}
+
+body {
+  scrollbar-color: #acaaaa #f1f1f1;
+  scrollbar-width: thin;
+}
+
+
 .fon {
     font-family: 'Gabarito', sans-serif;
 }
@@ -39,4 +68,8 @@
     background-color: #7db092;
     overflow: hidden;
   }
+
+body, html {
+  overflow: hidden;
+}
   
